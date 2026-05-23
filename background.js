@@ -66,8 +66,8 @@ async function scanOneClassroom(target) {
   try {
     await waitForTabLoaded(tab.id);
     
-    // FIX: Removed chrome.scripting.executeScript since manifest.json handles injection
-    await delay(1800);
+    // INCREASED DELAY: Give Classroom stream time to populate dynamic elements
+    await delay(3500);
 
     const response = await chrome.tabs.sendMessage(tab.id, {
       type: "SCRAPE_CLASSROOM_PAGE",
