@@ -65,10 +65,8 @@ async function scanOneClassroom(target) {
 
   try {
     await waitForTabLoaded(tab.id);
-    await chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      files: ["content.js"]
-    }).catch(() => {});
+    
+    // FIX: Removed chrome.scripting.executeScript since manifest.json handles injection
     await delay(1800);
 
     const response = await chrome.tabs.sendMessage(tab.id, {
