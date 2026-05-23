@@ -309,12 +309,28 @@ const classrooms = [
     const alreadyExists = state.assignments.some((item) => assignmentKey(item) === assignmentKey(assignment));
     if (alreadyExists) return;
   
+    // FIX: Push the new assignment to the array, and remove the broken completeId filter line
+    state.assignments.push(assignment);
+    saveState();
+    renderAll();
+  }
+  
+  // FIX: Add the missing completeAssignment function so checking tasks off works
+  function completeAssignment(id) {
+    state.assignments = state.assignments.filter((item) => item.id !== id);
+    saveState();
+    renderAll();
+  }
+  
+    const alreadyExists = state.assignments.some((item) => assignmentKey(item) === assignmentKey(assignment));
+    if (alreadyExists) return;
+  
     state.assignments = state.assignments.filter((item) => item.id !== completeId);
     saveState();
     renderAll();
     saveState();
     renderAll();
-  }
+  
   
   function cleanAssignmentTitle(title) {
     return String(title || "Imported Classroom assignment")
