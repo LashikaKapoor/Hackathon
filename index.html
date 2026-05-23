@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stacked</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+        <p class="eyebrow">Assignment Hub</p>
+        <h1>One place for every class deadline.</h1>
+    </div>
+    <div class="top-actions">
+      <button id="scanNowBtn" class="primary-btn">Scan sources</button>
+      <button id="exportBtn" class="ghost-btn">Export</button>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="panel overview">
+      <div class="stat">
+        <span id="dueSoonCount">0</span>
+        <p>Due soon</p>
+      </div>
+      <div class="stat">
+        <span id="totalAssignments">0</span>
+        <p>Total tasks</p>
+      </div>
+      <div class="stat">
+        <span id="highPriorityCount">0</span>
+        <p>High priority</p>
+      </div>
+      <label class="time-input">
+        Study time today
+        <input id="dailyHours" type="number" min="0.5" max="12" step="0.5" value="2">
+      </label>
+    </section>
+
+    <section class="panel email-panel">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Notifications</p>
+          <h2>Email latest assignments</h2>
+        </div>
+      </div>
+      <form id="emailForm" class="email-form">
+        <input id="emailInput" type="email" placeholder="Your email address">
+        <button class="primary-btn" type="submit">Send email digest</button>
+      </form>
+      <p id="emailStatus" class="source-note">Creates a ready-to-send email with your newest assignments.</p>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Add Work</p>
+            <h2>New assignment</h2>
+          </div>
+        </div>
+        <form id="assignmentForm" class="form-grid">
+          <input id="titleInput" required placeholder="Assignment title">
+          <select id="classInput"></select>
+          <input id="dueInput" type="date" required>
+          <select id="priorityInput">
+            <option>High</option>
+            <option selected>Medium</option>
+            <option>Low</option>
+          </select>
+          <input id="categoryInput" placeholder="Category, like essay or test">
+          <input id="tagsInput" placeholder="Tags, comma separated">
+          <input id="minutesInput" type="number" min="5" step="5" value="45" placeholder="Minutes">
+          <button class="primary-btn" type="submit">Add assignment</button>
+        </form>
+      </article>
+
+      <article class="panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Real Time</p>
+            <h2>Voice assignment catcher</h2>
+          </div>
+          <label class="switch">
+            <input id="voiceEnabled" type="checkbox" checked>
+            <span></span>
+          </label>
+        </div>
+        <div class="voice-box">
+          <button id="voiceBtn" class="primary-btn">Start listening</button>
+          <p id="voiceStatus">Listens for due dates, important assignments, and brief concept takeaways.</p>
+          <div id="transcript" class="transcript">Transcript will appear here.</div>
+        </div>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Voice Notes</p>
+          <h2>Key takeaways</h2>
+        </div>
+        <button id="clearTakeawaysBtn" class="ghost-btn" type="button">Clear notes</button>
+      </div>
+      <div id="takeawayList" class="takeaway-list"></div>
+    </section>
+
+    <section class="grid wide-left">
+      <article class="panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Organized</p>
+            <h2>Assignments</h2>
+          </div>
+          <div class="filters">
+            <select id="filterClass">
+              <option value="All">All classes</option>
+            </select>
+            <select id="filterPriority">
+              <option value="All">All priorities</option>
+              <option>High</option>
+              <option>Medium</option>
+              <option>Low</option>
+            </select>
+          </div>
+        </div>
+        <div id="assignmentList" class="assignment-list"></div>
+      </article>
+
+      <aside class="panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Focus</p>
+            <h2>Study timer</h2>
+          </div>
+          <label class="switch labeled">
+            Breaks
+            <input id="breakToggle" type="checkbox" checked>
+            <span></span>
+          </label>
+        </div>
+        <div class="timer">
+          <div id="timerMode">Study</div>
+          <strong id="timerDisplay">25:00</strong>
+          <div class="timer-controls">
+            <button id="startTimer" class="primary-btn">Start</button>
+            <button id="resetTimer" class="ghost-btn">Reset</button>
+          </div>
+        </div>
+        <div id="studyPlan" class="plan"></div>
+      </aside>
+    </section>
+
+    <section class="grid">
+      <article class="panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Sources</p>
+            <h2>Classrooms and websites</h2>
+          </div>
+        </div>
+        <div id="classroomList" class="source-list"></div>
+        <form id="sourceForm" class="source-form">
+          <input id="sourceInput" type="url" placeholder="Add website to scan">
+          <button class="ghost-btn" type="submit">Add site</button>
+        </form>
+        <div id="sourceList" class="source-list"></div>
+      </article>
+
+      <article class="panel">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Month</p>
+            <h2 id="calendarTitle">Calendar</h2>
+          </div>
+          <div class="calendar-buttons">
+            <button id="prevMonth" class="icon-btn" aria-label="Previous month">&lt;</button>
+            <button id="nextMonth" class="icon-btn" aria-label="Next month">&gt;</button>
+          </div>
+        </div>
+        <div id="calendar" class="calendar"></div>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Extension Scan</p>
+          <h2>Google Classroom sync</h2>
+        </div>
+      </div>
+      <div class="scan-row">
+        <p id="scanStatus" class="source-note">Load this folder as a Chrome extension, open Assignment Hub from the extension icon, then click Scan sources to scan the three Google Classrooms.</p>
+        <button id="openDashboardBtn" class="ghost-btn" type="button">Open dashboard</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Toolbox</p>
+          <h2>Tools by class need</h2>
+        </div>
+      </div>
+      <div id="toolList" class="tools"></div>
+    </section>
+  </main>
+
+  <template id="assignmentTemplate">
+    <div class="assignment-card">
+      <div>
+        <strong class="task-title"></strong>
+        <p class="task-meta"></p>
+        <div class="tag-row"></div>
+      </div>
+      <div class="task-actions">
+        <span class="priority-pill"></span>
+        <button class="complete-btn">Done</button>
+      </div>
+    </div>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>

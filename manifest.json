@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Assignment Hub Classroom Scanner",
+  "version": "1.0.0",
+  "description": "Scans visible Google Classroom pages and imports due dates into Assignment Hub.",
+  "action": {
+    "default_title": "Assignment Hub"
+  },
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://classroom.google.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://classroom.google.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
